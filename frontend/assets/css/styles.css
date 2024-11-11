@@ -1,0 +1,64 @@
+body {
+    background-color: #5f5e5e;
+    color: #d4d1d1;
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2 {
+    color: #f0f0f0;
+}
+
+.container-custom {
+    max-width: 800px;
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #3b3b3b;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+button, .btn-primary {
+    background-color: #ff007f;
+    color: #f4f1f1;
+    font-style: italic;
+    font-weight: bold;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+button:hover, .btn-primary:hover {
+    background-color: #cc006b;
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.4);
+}
+
+.table th, .table td {
+    color: #d4d1d1;
+}
+
+.card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+a {
+    color: #ff007f;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+a:hover {
+    color: #cc006b;
+}
