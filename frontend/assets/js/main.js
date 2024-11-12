@@ -1,29 +1,43 @@
+baseUrl = 'http://localhost:3000';
+
 document.addEventListener("DOMContentLoaded", function() {
-    mostrarSeccion('clientes'); // Mostrar la sección de clientes por defecto
+    configurarBusquedaClientes();
 });
 
-function mostrarSeccion(seccionId) {
-    const secciones = document.querySelectorAll('.seccion');
-    secciones.forEach(seccion => {
-        seccion.classList.remove('active');
-    });
+function configurarBusquedaClientes() {
+    const buscarClienteInput = document.getElementById('buscarCliente');
+    const resultadosBusqueda = document.getElementById('resultadosBusqueda');
 
-    const seccion = document.getElementById(seccionId);
-    if (seccion) {
-        seccion.classList.add('active');
-    }
+    buscarClienteInput.addEventListener('input', async function() {
+        const query = buscarClienteInput.value;
+        if (query.length < 2) {
+            resultadosBusqueda.innerHTML = '';
+            return;
+        }
+
+        try {
+            const response = await fetch(`${baseUrl}/clientes?search=${query}`);
+            const clientes = await response.json();
+            resultadosBusqueda.innerHTML = '';
+            clientes.forEach(cliente => {
+                const item = document.createElement('a');
+                item.href = '#';
+                item.classList.add('list-group-item', 'list-group-item-action');
+                item.textContent = `${cliente.nombre} ${cliente.apellidos}`;
+                item.addEventListener('click', () => seleccionarCliente(cliente));
+                resultadosBusqueda.appendChild(item);
+            });
+        } catch (error) {
+            console.error('Error al buscar clientes:', error);
+        }
+    });
 }
 
-function mostrarSubseccion(subseccionId) {
-    const subsecciones = document.querySelectorAll('.subseccion');
-    subsecciones.forEach(subseccion => {
-        subseccion.classList.remove('active');
-    });
-
-    const subseccion = document.getElementById(subseccionId);
-    if (subseccion) {
-        subseccion.classList.add('active');
-    }
+function seleccionarCliente(cliente) {
+    document.getElementById('nombreCliente').value = cliente.nombre;
+    document.getElementById('apellidosCliente').value = cliente.apellidos;
+    document.getElementById('telefonoCliente').value = cliente.telefono;
+    document.getElementById('resultadosBusqueda').innerHTML = '';
 }
 
 // Función para agregar un nuevo cliente
@@ -53,6 +67,36 @@ if (formAgregarCliente) {
     });
 }
 
+// Función para agregar una nueva cita
+const formAgregarCita = document.getElementById("formAgregarCita");
+if (formAgregarCita) {
+    formAgregarCita.addEventListener("submit", async function(e) {
+        e.preventDefault();
+        const nombre_cliente = document.getElementById("nombreCliente").value;
+        const telefono_cliente = document.getElementById("telefonoCliente").value;
+        const tratamiento = document.getElementById("tratamiento").value;
+        const descripcion = document.getElementById("descripcion").value;
+        const precio = document.getElementById("precio").value;
+        const metodo_pago = document.getElementById("metodoPago").value;
+        const fecha = document.getElementById("fecha").value;
+
+        try {
+            const response = await fetch(`${baseUrl}/citas`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ nombre_cliente, telefono_cliente, tratamiento, descripcion, precio, metodo_pago, fecha })
+            });
+            if (!response.ok) {
+                throw new Error('Error al agregar cita: ' + response.statusText);
+            }
+            cargarCitas(); // Actualiza la lista
+            e.target.reset();
+        } catch (error) {
+            console.error('Error al agregar cita:', error);
+        }
+    });
+}
+
 // Función para obtener y mostrar los clientes
 async function obtenerClientes() {
     try {
@@ -77,6 +121,32 @@ async function obtenerClientes() {
         });
     } catch (error) {
         console.error('Error al obtener clientes:', error);
+    }
+}
+
+// Función para obtener y mostrar las citas
+async function cargarCitas() {
+    try {
+        const respuesta = await fetch(`${baseUrl}/citas`);
+        const citas = await respuesta.json();
+        const tbody = document.querySelector("#tablaCitas tbody");
+        if (!tbody) return;
+        tbody.innerHTML = ""; // Limpiar la tabla
+        citas.forEach(cita => {
+            tbody.innerHTML += `
+                <tr>
+                    <td>${cita.nombre_cliente}</td>
+                    <td>${cita.telefono_cliente}</td>
+                    <td>${cita.tratamiento}</td>
+                    <td>${cita.descripcion}</td>
+                    <td>${cita.precio}</td>
+                    <td>${cita.metodo_pago}</td>
+                    <td>${cita.fecha}</td>
+                </tr>
+            `;
+        });
+    } catch (error) {
+        console.error('Error al cargar citas:', error);
     }
 }
 

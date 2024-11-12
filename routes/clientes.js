@@ -1,13 +1,22 @@
 const express = require('express');
-const { body, validationResult, param } = require('express-validator');
+const { body, validationResult, param, query } = require('express-validator');
 const router = express.Router();
 const db = require('../db'); // Importa la conexion desde db.js
 
 // Rutas CRUD para clientes
 
-// Ruta para obtener todos los clientes
-router.get('/', (req, res) => {
-    db.query('SELECT * FROM clientes', (err, rows) => {
+// Ruta para obtener todos los clientes o buscar clientes
+router.get('/', query('search').optional().isString(), (req, res) => {
+    const search = req.query.search;
+    let queryStr = 'SELECT * FROM clientes';
+    let queryParams = [];
+
+    if (search) {
+        queryStr += ' WHERE nombre LIKE ? OR apellidos LIKE ?';
+        queryParams = [`%${search}%`, `%${search}%`];
+    }
+
+    db.query(queryStr, queryParams, (err, rows) => {
         if (err) {
             console.error('Error al obtener los clientes:', err);
             res.status(500).send('Error al obtener los clientes');
