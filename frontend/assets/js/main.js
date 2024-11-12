@@ -1,8 +1,20 @@
-baseUrl = 'http://localhost:3000';
+const baseUrl = 'http://localhost:3000';
 
 document.addEventListener("DOMContentLoaded", function() {
     configurarBusquedaClientes();
 });
+
+function mostrarSeccion(seccionId) {
+    const secciones = document.querySelectorAll('.container-custom');
+    secciones.forEach(seccion => {
+        seccion.classList.add('d-none');
+    });
+
+    const seccion = document.getElementById(seccionId);
+    if (seccion) {
+        seccion.classList.remove('d-none');
+    }
+}
 
 function configurarBusquedaClientes() {
     const buscarClienteInput = document.getElementById('buscarCliente');
