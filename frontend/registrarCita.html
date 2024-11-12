@@ -22,53 +22,66 @@
         <p class="lead mb-4">Bienvenido a la plataforma de gestión de citas de la peluquería.</p>
     </div>
 
-    <!-- Formulario para agregar una nueva cita -->
-    <div id="registrarCita" class="container container-custom d-none">
-        <h2 class="text-center mb-4">Registrar Cita</h2>
-        <form id="formAgregarCita" class="card p-4 shadow-sm">
-            <div class="mb-3">
-                <label for="buscarCliente" class="form-label">Buscar Cliente</label>
-                <input type="text" class="form-control" id="buscarCliente" placeholder="Buscar cliente...">
-                <div id="resultadosBusqueda" class="list-group mt-2"></div>
+    <div class="container text-center mt-4">
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalRegistrarCita">Registrar Cita</button>
+    </div>
+
+    <!-- Modal para registrar cita -->
+    <div class="modal fade" id="modalRegistrarCita" tabindex="-1" aria-labelledby="modalRegistrarCitaLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalRegistrarCitaLabel">Registrar Cita</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formAgregarCita" class="card p-4 shadow-sm">
+                        <div class="mb-3">
+                            <label for="buscarCliente" class="form-label">Buscar Cliente</label>
+                            <input type="text" class="form-control" id="buscarCliente" placeholder="Buscar cliente...">
+                            <div id="resultadosBusqueda" class="list-group mt-2"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="nombreCliente" class="form-label">Nombre del Cliente</label>
+                            <input type="text" class="form-control" id="nombreCliente" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="apellidosCliente" class="form-label">Apellidos del Cliente</label>
+                            <input type="text" class="form-control" id="apellidosCliente" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="telefonoCliente" class="form-label">Teléfono del Cliente</label>
+                            <input type="tel" class="form-control" id="telefonoCliente" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="tratamiento" class="form-label">Tratamiento</label>
+                            <input type="text" class="form-control" id="tratamiento" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="descripcion" class="form-label">Descripción</label>
+                            <textarea class="form-control" id="descripcion"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="precio" class="form-label">Precio</label>
+                            <input type="number" class="form-control" id="precio" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="metodoPago" class="form-label">Método de Pago</label>
+                            <select id="metodoPago" class="form-select" required>
+                                <option value="efectivo">Efectivo</option>
+                                <option value="tarjeta">Tarjeta</option>
+                                <option value="bono">Bono</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="fecha" class="form-label">Fecha</label>
+                            <input type="date" class="form-control" id="fecha" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Agregar Cita</button>
+                    </form>
+                </div>
             </div>
-            <div class="mb-3">
-                <label for="nombreCliente" class="form-label">Nombre del Cliente</label>
-                <input type="text" class="form-control" id="nombreCliente" required>
-            </div>
-            <div class="mb-3">
-                <label for="apellidosCliente" class="form-label">Apellidos del Cliente</label>
-                <input type="text" class="form-control" id="apellidosCliente" required>
-            </div>
-            <div class="mb-3">
-                <label for="telefonoCliente" class="form-label">Teléfono del Cliente</label>
-                <input type="tel" class="form-control" id="telefonoCliente" required>
-            </div>
-            <div class="mb-3">
-                <label for="tratamiento" class="form-label">Tratamiento</label>
-                <input type="text" class="form-control" id="tratamiento" required>
-            </div>
-            <div class="mb-3">
-                <label for="descripcion" class="form-label">Descripción</label>
-                <textarea class="form-control" id="descripcion"></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="precio" class="form-label">Precio</label>
-                <input type="number" class="form-control" id="precio" required>
-            </div>
-            <div class="mb-3">
-                <label for="metodoPago" class="form-label">Método de Pago</label>
-                <select id="metodoPago" class="form-select" required>
-                    <option value="efectivo">Efectivo</option>
-                    <option value="tarjeta">Tarjeta</option>
-                    <option value="bono">Bono</option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="fecha" class="form-label">Fecha</label>
-                <input type="date" class="form-control" id="fecha" required>
-            </div>
-            <button type="submit" class="btn btn-primary w-100">Agregar Cita</button>
-        </form>
+        </div>
     </div>
 
     <!-- Tabla de citas -->
@@ -96,6 +109,8 @@
     </div>
 
     <!-- Archivo JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
     <script src="./assets/js/main.js"></script>
 </body>
 </html>
