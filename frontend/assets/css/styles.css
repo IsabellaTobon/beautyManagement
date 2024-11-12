@@ -43,11 +43,17 @@ button:hover, .btn-primary:hover {
     box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.4);
 }
 
-.table th, .table td {
+.table th {
     background-color: #f01b86bd;
     box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.4);
     border-radius: 50px;
     color: #d4d1d1;
+}
+
+.table td {
+    background-color: #f2e1e9ed;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+    color: #242424;
 }
 
 .card {
@@ -71,4 +77,37 @@ a {
 
 a:hover {
     color: #cc006b;
+}
+
+.top-bar {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.top-bar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.top-bar ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+.top-bar ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.seccion, .subseccion {
+    display: none;
+    padding: 20px;
+}
+
+.seccion.active, .subseccion.active {
+    display: block;
 }
