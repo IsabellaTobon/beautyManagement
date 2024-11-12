@@ -4,18 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Peluquería</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/css/styles.css">
 </head>
 <body>
     <div class="container text-center mt-4">
-        <h1 class="mt-5">Gestión de Clientes</h1>
+        <h1 class="mt-5" id="titulo">Gestión de Clientes</h1>
         <p class="lead mb-4">Bienvenido a la plataforma de gestión de clientes de la peluquería.</p>
     </div>
 
+    <!-- Formulario para agregar un nuevo cliente -->
     <div class="container container-custom">
         <h2 class="text-center mb-4">Registrar Cliente</h2>
-        <form id="formAgregarCliente">
+        <form id="formAgregarCliente" class="card p-4 shadow-sm">
             <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre</label>
                 <input type="text" class="form-control" id="nombre" required>
@@ -36,10 +37,11 @@
         </form>
     </div>
 
-    <div class="container mt-5">
+    <!-- Tabla de clientes -->
+    <div class="container mt-5 container-custom">
         <h2>Lista de Clientes</h2>
-        <table class="table" id="tablaClientes">
-            <thead>
+        <table class="table table-striped table-hover text-center" id="tablaClientes">
+            <thead class="table-dark">
                 <tr>
                     <th>ID</th>
                     <th>Nombre</th>
@@ -50,11 +52,111 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Aquí se insertarán los datos de clientes -->
+                <!-- Los datos de los clientes se insertarán dinámicamente aquí -->
             </tbody>
         </table>
     </div>
 
+    <!-- Formulario para agregar un nuevo tratamiento -->
+    <div class="container mt-5 container-custom">
+        <h2>Registrar Tratamiento</h2>
+        <form id="formAgregarTratamiento" class="card p-4 shadow-sm">
+            <div class="mb-3">
+                <label for="nombreTratamiento" class="form-label">Nombre del Tratamiento</label>
+                <input type="text" class="form-control" id="nombreTratamiento" required>
+            </div>
+            <div class="mb-3">
+                <label for="descripcionTratamiento" class="form-label">Descripción</label>
+                <textarea class="form-control" id="descripcionTratamiento"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="precioTratamiento" class="form-label">Precio</label>
+                <input type="number" class="form-control" id="precioTratamiento" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Agregar Tratamiento</button>
+        </form>
+    </div>
+
+    <!-- Tabla de tratamientos -->
+    <div class="container mt-5 container-custom">
+        <h2>Lista de Tratamientos</h2>
+        <table class="table table-striped table-hover" id="tablaTratamientos">
+            <thead class="table-dark">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Precio</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Los datos de los tratamientos se insertarán dinámicamente aquí -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Formulario para agregar una nueva cita -->
+    <div class="container mt-5 container-custom">
+        <h2>Registrar Cita</h2>
+        <form id="formAgregarCita" class="card p-4 shadow-sm">
+            <div class="mb-3">
+                <label for="nombreCliente" class="form-label">Nombre del Cliente</label>
+                <input type="text" class="form-control" id="nombreCliente" required>
+            </div>
+            <div class="mb-3">
+                <label for="telefonoCliente" class="form-label">Teléfono del Cliente</label>
+                <input type="tel" class="form-control" id="telefonoCliente" required>
+            </div>
+            <div class="mb-3">
+                <label for="tratamiento" class="form-label">Tratamiento</label>
+                <input type="text" class="form-control" id="tratamiento" required>
+            </div>
+            <div class="mb-3">
+                <label for="descripcion" class="form-label">Descripción</label>
+                <textarea class="form-control" id="descripcion"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="precio" class="form-label">Precio</label>
+                <input type="number" class="form-control" id="precio" required>
+            </div>
+            <div class="mb-3">
+                <label for="metodoPago" class="form-label">Método de Pago</label>
+                <select id="metodoPago" class="form-select" required>
+                    <option value="efectivo">Efectivo</option>
+                    <option value="tarjeta">Tarjeta</option>
+                    <option value="bono">Bono</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="fecha" class="form-label">Fecha</label>
+                <input type="date" class="form-control" id="fecha" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Agregar Cita</button>
+        </form>
+    </div>
+
+    <!-- Tabla de citas -->
+    <div class="container mt-5">
+        <h2>Lista de Citas</h2>
+        <table class="table table-striped table-hover" id="tablaCitas">
+            <thead class="table-dark">
+                <tr>
+                    <th>Cliente</th>
+                    <th>Teléfono</th>
+                    <th>Tratamiento</th>
+                    <th>Descripción</th>
+                    <th>Precio</th>
+                    <th>Método de Pago</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Los datos de las citas se insertarán dinámicamente aquí -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Archivo JavaScript -->
     <script src="./assets/js/main.js"></script>
 </body>
 </html>

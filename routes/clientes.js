@@ -8,7 +8,8 @@ const db = require('../db'); // Importa la conexion desde db.js
 // Ruta para obtener todos los clientes
 router.get('/', (req, res) => {
     db.query('SELECT * FROM clientes', (err, rows) => {
-        if(err) {
+        if (err) {
+            console.error('Error al obtener los clientes:', err);
             res.status(500).send('Error al obtener los clientes');
         } else {
             res.json(rows);
@@ -26,6 +27,7 @@ router.get('/:id', param('id').isInt(), (req, res) => {
     const { id } = req.params;
     db.query('SELECT * FROM clientes WHERE id = ?', [id], (err, results) => {
         if (err) {
+            console.error('Error al obtener el cliente:', err);
             res.status(500).send('Error al obtener el cliente');
         } else if (results.length === 0) {
             res.status(404).json({ message: 'Cliente no encontrado' });
@@ -39,9 +41,8 @@ router.get('/:id', param('id').isInt(), (req, res) => {
 router.post(
     '/',
     [
-        body('nombre').isString().notEmpty().withMessage('Nombre es requerido'),
-        body('apellidos').isString().notEmpty().withMessage('Apellidos son requeridos'),
-        body('telefono').isMobilePhone().withMessage('Teléfono no válido'),
+        body('nombre_apellido').isString().notEmpty().withMessage('Nombre y Apellido son requeridos'),
+        body('telefono').optional().isMobilePhone().withMessage('Teléfono no válido'),
         body('notas').optional().isString(),
     ],
     (req, res) => {
@@ -50,10 +51,11 @@ router.post(
             return res.status(400).json({ errors: errors.array() });
         }
 
-        const { nombre, apellidos, telefono, notas } = req.body;
-        const query = 'INSERT INTO clientes (nombre, apellidos, telefono, notas) VALUES (?, ?, ?, ?)';
-        db.query(query, [nombre, apellidos, telefono, notas], (err, result) => {
+        const { nombre_apellido, telefono, notas } = req.body;
+        const query = 'INSERT INTO gestion_peluqueria.clientes (nombre_apellido, telefono, ultima_cita, ultimo_tratamiento, precio_ultima_cita, notas) VALUES (?, ?, NULL, NULL, NULL, ?)';
+        db.query(query, [nombre_apellido, telefono, notas], (err, result) => {
             if (err) {
+                console.error('Error al agregar cliente:', err);
                 res.status(500).send('Error al agregar cliente');
             } else {
                 res.status(201).send('Cliente agregado con éxito');
@@ -67,9 +69,8 @@ router.put(
     '/:id',
     [
         param('id').isInt(),
-        body('nombre').isString().notEmpty().withMessage('Nombre es requerido'),
-        body('apellidos').isString().notEmpty().withMessage('Apellidos son requeridos'),
-        body('telefono').isMobilePhone().withMessage('Teléfono no válido'),
+        body('nombre_apellido').isString().notEmpty().withMessage('Nombre y Apellido son requeridos'),
+        body('telefono').optional().isMobilePhone().withMessage('Teléfono no válido'),
         body('notas').optional().isString(),
     ],
     (req, res) => {
@@ -79,10 +80,11 @@ router.put(
         }
 
         const { id } = req.params;
-        const { nombre, apellidos, telefono, notas } = req.body;
-        const query = 'UPDATE clientes SET nombre = ?, apellidos = ?, telefono = ?, notas = ? WHERE id = ?';
-        db.query(query, [nombre, apellidos, telefono, notas, id], (err, result) => {
+        const { nombre_apellido, telefono, notas } = req.body;
+        const query = 'UPDATE gestion_peluqueria.clientes SET nombre_apellido = ?, telefono = ?, notas = ? WHERE id = ?';
+        db.query(query, [nombre_apellido, telefono, notas, id], (err, result) => {
             if (err) {
+                console.error('Error al actualizar el cliente:', err);
                 res.status(500).send('Error al actualizar el cliente');
             } else {
                 res.status(200).send('Cliente actualizado con éxito');
@@ -99,9 +101,10 @@ router.delete('/:id', param('id').isInt(), (req, res) => {
     }
 
     const { id } = req.params;
-    const query = 'DELETE FROM clientes WHERE id = ?';
+    const query = 'DELETE FROM gestion_peluqueria.clientes WHERE id = ?';
     db.query(query, [id], (err, result) => {
         if (err) {
+            console.error('Error al eliminar el cliente:', err);
             res.status(500).send('Error al eliminar el cliente');
         } else {
             res.status(200).send('Cliente eliminado con éxito');
