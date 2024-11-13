@@ -26,6 +26,39 @@ router.get('/', query('search').optional().isString(), (req, res) => {
     });
 });
 
+// Ruta para obtener detalles del cliente, incluyendo última cita, tratamiento y precio pagado
+router.get('/detalles/:id', param('id').isInt(), (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
+    const { id } = req.params;
+
+    // Consulta para obtener detalles del cliente junto con la última cita, tratamiento y precio pagado
+    const queryStr = `
+        SELECT c.nombre, c.apellidos, c.telefono, c.notas,
+            a.fecha AS ultima_cita, t.servicio AS ultimo_tratamiento, a.precio AS precio_ultima_cita
+        FROM gestion_peluqueria.clientes AS c
+        LEFT JOIN gestion_peluqueria.citas AS a ON a.cliente_id = c.id
+        LEFT JOIN gestion_peluqueria.tratamientos AS t ON a.tratamiento_id = t.id
+        WHERE c.id = ?
+        ORDER BY a.fecha DESC
+        LIMIT 1;
+    `;
+
+    db.query(queryStr, [id], (err, results) => {
+        if (err) {
+            console.error('Error al obtener los detalles del cliente:', err);
+            res.status(500).send('Error al obtener los detalles del cliente');
+        } else if (results.length === 0) {
+            res.status(404).json({ message: 'Cliente no encontrado' });
+        } else {
+            res.json(results[0]);
+        }
+    });
+});
+
 // Ruta para obtener un cliente por ID
 router.get('/:id', param('id').isInt(), (req, res) => {
     const errors = validationResult(req);

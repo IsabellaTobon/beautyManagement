@@ -17,7 +17,7 @@ h1, h2 {
 }
 
 .container-custom {
-    max-width: 800px;
+    max-width: 100%;
     margin-top: 40px;
     padding: 20px;
     background-color: #3b3b3b;
@@ -118,4 +118,10 @@ a:hover {
 
 .table th, .table td {
     white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+    .table th, .table td {
+        white-space: normal;
+    }
 }

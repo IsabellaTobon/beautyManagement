@@ -20,7 +20,6 @@
     <div class="container text-center mt-4">
         <h1 class="mt-5" id="titulo">Gestión de Clientes</h1>
         <p class="lead mb-4">Bienvenido a la plataforma de gestión de clientes de la peluquería.</p>
-    </div>
 
     <div class="container text-center mt-4">
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalRegistrarCliente">Registrar Cliente</button>
@@ -62,22 +61,28 @@
     <!-- Tabla de clientes -->
     <div class="container mt-5 container-custom">
         <h2>Lista de Clientes</h2>
-        <table class="table table-striped table-hover text-center" id="tablaClientes">
-            <thead class="table-dark">
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Apellidos</th>
-                    <th>Teléfono</th>
-                    <th>Notas</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Los datos de los clientes se insertarán dinámicamente aquí -->
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover text-center" id="tablaClientes">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>Teléfono</th>
+                        <th>Notas</th>
+                        <th>Última Cita</th>
+                        <th>Último Tratamiento</th>
+                        <th>Precio Última Cita</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Los datos de los clientes se insertarán dinámicamente aquí -->
+                </tbody>
+            </table>
+        </div>
     </div>
+</div>
 
     <!-- Archivo JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
